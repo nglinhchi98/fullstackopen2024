@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { ReactDOM } from 'react'
 
   const App = () => {
   const anecdotes = [
