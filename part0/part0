@@ -1,0 +1,68 @@
+4. New note creation diagram
+
+sequenceDiagram 
+    participant user
+    participant browser
+    participant server
+
+    user->>browser: Navigate to https://studies.cs.helsinki.fi/exampleapp/notes
+    browser->>server: GET /exampleapp/notes
+    server-->>browser: HTML page with the note form
+    browser-->>user: Display note page with form
+    
+    user->>browser: fill in the text
+    user->>browser: click Save 
+    browser->>server: POST exampleapp/notes with the new note data
+    server-->>browser: redirect to exampleapp/notes
+    browser->>server: GET exampleapp/notes
+    server->>browser: HTML page with update notes
+    browser->>user: Display updated notes page
+
+5. Single page app diagram
+
+sequenceDiagram
+    participant browser
+    participant server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server->>browser: HTML document
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server->>browser: main.css file
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server->>browser: spa.js file
+    deactivate server
+
+    Note right of browser: The browser starts executing the JavaScript code that fetches the JSON from the server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server->>browser: json with existing text
+    deactivate server
+
+    Note right of browser: The browser executes the callback function that renders the notes
+
+6. New note to spa page
+...continue from ex.5
+
+sequenceDiagram
+    participant user
+    participant browser
+    participant server
+
+    Note right of User: SPA shell loads necessary scripts and styles
+
+    browser->>server: GET /exampleapp/data.json
+    server->>browser: JSON with existing notes
+    browser-->>user: Display notes from fetched data
+
+    user->>browser: Enter text, click SAVE
+    browser->>server: POST studies.cs.helsinki.fi/exampleapp/new_note_spa with note data
+    server-->browser: confirmation of note saved from json response
+    browser-->>user: update the note list with new text
