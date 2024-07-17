@@ -14,11 +14,21 @@ const App = () => {
       </>
     )
   }
+
+  const Part = (props) => {
+    return (
+      <>
+      <p>{props.name}: {props.exercise}</p>
+      </>
+    )
+  }
   
   return (
     <div>
       <Header course={course}/>
-          
+      <Part name={part1} exercise={exercises1} />
+      <Part name={part2} exercise={exercises2} />
+      <Part name={part3} exercise={exercises3} />
     </div>
   )
 }
